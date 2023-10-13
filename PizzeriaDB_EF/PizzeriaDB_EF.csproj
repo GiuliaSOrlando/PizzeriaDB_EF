@@ -281,7 +281,6 @@
     <Content Include="Views\Ordini\AllOrders.cshtml" />
     <Content Include="Views\Ordini\ConcludedOrders.cshtml" />
     <Content Include="Views\Ordini\Query.cshtml" />
-    <Content Include="Views\Ordini\TotalRevenueForDay.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

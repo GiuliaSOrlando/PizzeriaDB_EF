@@ -271,6 +271,7 @@ namespace PizzeriaDB_EF.Controllers
         {
             return View();
         }
+
         public JsonResult TotalOrdersForDay()
         {
             InitializeAllOrders();
@@ -289,21 +290,21 @@ namespace PizzeriaDB_EF.Controllers
             }
         }
 
-        public ActionResult TotalRevenueForDay()
+        public ActionResult TotalRevenueForDay(DateTime selectedDate)
         {
             InitializeAllOrders();
             DateTime dataOdierna = DateTime.Now.Date;
             List<Ordini> ordini = ViewBag.AllOrders;
 
             var totaleOrdini = ordini
-                .Where(o => o.DataOrdine.HasValue && o.DataOrdine.Value.Date == dataOdierna.Date &&
+                .Where(o => o.DataOrdine.HasValue && o.DataOrdine.Value.Date == selectedDate.Date &&
                             o.StatoOrdine == "Evaso")
                 .Select(o => o.IdOrdine)
                 .ToList();
 
             decimal? incassoTotale = DB.DettagliOrdine
                     .Where(d => totaleOrdini.Contains(d.IdOrdine))
-                    .Sum(d => (decimal?)(d.Quantita * d.PrezzoTotale));
+                    .Sum(d => (decimal?)(d.PrezzoTotale));
 
                 if (incassoTotale.HasValue)
                 {
