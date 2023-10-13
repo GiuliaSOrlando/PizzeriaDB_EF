@@ -1,0 +1,38 @@
+﻿@model List<PizzeriaDB_EF.Models.Ordini>
+
+@{
+    ViewBag.Title = "ConcludedOrders";
+}
+<div class=" mx-auto bg-white rounded-4 border border-1 border-white mt-5 p-2">
+
+    <h2>Elenco Ordini Conclusi</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID Ordine</th>
+                <th>Data Ordine</th>
+                <th>Stato Ordine</th>
+                <th>Toggle Order Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var ordine in Model)
+            {
+                <tr>
+                    <td>@ordine.IdOrdine</td>
+                    <td>@string.Format("{0:dd/MM/yyyy}", @ordine.DataOrdine)</td>
+                    <td>@ordine.StatoOrdine</td>
+                    <td>
+                        @if (ordine.StatoOrdine == "Evaso")
+                        {
+                            <form method="post" action="@Url.Action("ToggleOrderStatus", "Ordini", new { idOrdine = ordine.IdOrdine, statoOrdine = ordine.StatoOrdine })">
+                                <button type="submit" class="btn btn-danger">In elaborazione</button>
+                            </form>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    </div>

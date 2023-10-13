@@ -1,0 +1,38 @@
+﻿@model IEnumerable<PizzeriaDB_EF.Models.IngredientiExtra>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Prezzo)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Prezzo)
+        </td>
+        <td>
+            @Html.ActionLink("Modifica", "Edit", new { id=item.IdIngredientiExtra }) |
+            @Html.ActionLink("Cancella", "Delete", new { id=item.IdIngredientiExtra })
+        </td>
+    </tr>
+}
+
+</table>

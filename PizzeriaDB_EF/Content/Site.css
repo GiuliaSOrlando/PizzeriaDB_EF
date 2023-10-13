@@ -1,0 +1,25 @@
+﻿body {
+    background-image: url(/Content/img/pizzeriabg.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    margin-top: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.navbar a {
+    color: white !important;
+    font-weight: bold !important;
+}
+
+@media (max-width: 1400px) {
+    body {
+        background-size: auto;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+}

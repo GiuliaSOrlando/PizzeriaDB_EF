@@ -1,0 +1,34 @@
+﻿@model PizzeriaDB_EF.Models.Ordini
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <h4>Ordini</h4>
+    <hr />
+    <p>Sei sicuro di voler ordinare questo prodotto?</p>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.IdUtente)
+
+    @Html.HiddenFor(model => model.DataOrdine)
+
+    @Html.HiddenFor(model => model.StatoOrdine)
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Conferma ordine" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

@@ -1,0 +1,36 @@
+﻿@model List<PizzeriaDB_EF.Models.Ordini>
+
+@{
+    ViewBag.Title = "AllOrders";
+}
+
+<div class=" mx-auto bg-white rounded-4 border border-1 border-white mt-5 p-2">
+
+    <h2 class="fw-lighter">TUTTI GLI ORDINI</h2>
+
+    <div>
+        <p>Visualizza ordini:</p>
+        @Html.ActionLink("In elaborazione", "AllOrders", new { statoOrdine = "In elaborazione" }, new { @class = ViewBag.StatoOrdine == "In elaborazione" ? "btn btn-danger" : "btn btn-default" })
+        @Html.ActionLink("Evaso", "AllOrders", new { statoOrdine = "Evaso" }, new { @class = ViewBag.StatoOrdine == "Evaso" ? "btn btn-danger" : "btn btn-default" })
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID Ordine</th>
+                <th>Data Ordine</th>
+                <th>Stato Ordine</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var ordine in Model)
+            {
+                <tr>
+                    <td>@ordine.IdOrdine</td>
+                    <td>@string.Format("{0:dd/MM/yyyy}", @ordine.DataOrdine)</td>
+                    <td>@ordine.StatoOrdine</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    </div>

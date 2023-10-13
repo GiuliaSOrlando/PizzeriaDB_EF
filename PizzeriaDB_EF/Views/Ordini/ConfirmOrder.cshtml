@@ -1,0 +1,53 @@
+﻿@model List<PizzeriaDB_EF.Models.DettagliOrdine>
+
+@{
+    ViewBag.Title = "Conferma Ordine";
+}
+
+<div class="mx-auto w-50 bg-white bg-opacity-75 rounded-4 border border-1 border-white mt-5 p-2">
+    <h2 class="fw-light">CONFERMA ORDINE</h2>
+    <hr class="text-danger" />
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <p>Bentornato, <strong>@User.Identity.Name</strong>!</p>
+        <p>Modifica i dettagli dell'ordine e conferma:</p>
+
+        using (Html.BeginForm("ConfirmOrder", "Ordini", FormMethod.Post))
+        {
+            <p>Inserisci l'indirizzo di spedizione</p>
+            <p>
+                Indirizzo di Spedizione: @Html.TextBox("indirizzoSpedizione")
+            </p>
+
+            <p>Rivedi i dettagli della tua ordinazione</p>
+
+            foreach (PizzeriaDB_EF.Models.DettagliOrdine dettaglio in Model)
+            {
+                @Html.HiddenFor(model => dettaglio.IdOrdine)
+                @Html.HiddenFor(model => dettaglio.IdProdotto)
+
+                <div>
+                    <h4>@ViewBag.NomiProdotti[Model.IndexOf(dettaglio)]</h4>
+                    <p>Quantità: @Html.TextBoxFor(model => dettaglio.Quantita)</p>
+                    <p>Prezzo Totale: @Html.DisplayFor(model => dettaglio.PrezzoTotale)</p>
+                    @foreach(SelectListItem ingredienti in ViewBag.IngredientiExtra)
+                        {
+                            <div>
+                                <input type="checkbox" name="ingredientiExtra_@ingredienti.Value" value="@ingredienti.Value" checked="@ingredienti.Selected" />
+                                @ingredienti.Text
+                            </div>
+                        }
+                    <p>Note aggiuntive: @Html.EditorFor(model => dettaglio.NoteAggiuntive) </p>
+                </div>
+            }
+
+            <p>Totale: @string.Format("{0:C}", ViewBag.Totale)</p>
+            <input type="submit" value="Conferma Ordine" class="btn btn-danger w-100" />
+        }
+    }
+    else
+    {
+        <p>Si prega di effettuare l'accesso per confermare l'ordine.</p>
+    }
+</div>

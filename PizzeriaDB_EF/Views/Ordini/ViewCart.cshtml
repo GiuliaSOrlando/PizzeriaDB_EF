@@ -1,0 +1,48 @@
+﻿@model List<PizzeriaDB_EF.Models.Carrello>
+
+@{
+    ViewBag.Title = "View Cart";
+}
+<div class="mx-auto w-50 bg-dark bg-opacity-75 text-white rounded-4 border border-1 border-white mt-5 p-2">
+    <h2 class="fw-light text-center">IL MIO CARRELLO</h2>
+    <hr class="text-white-50" />
+    <table class="table text-white">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Quantità</th>
+                <th>Prezzo totale</th>
+                <th>Ingredienti Extra</th>
+                <th>Note</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Count > 0)
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Nome</td>
+                        <td>@item.DettaglioOrdine.Quantita</td>
+                        <td>@string.Format("{0:C}", @item.DettaglioOrdine.PrezzoTotale)</td>
+                    </tr>
+                }
+                <tr>
+                    <td colspan="2"><strong>Totale:</strong></td>
+                    <td colspan="3"><strong>@string.Format("{0:C}", @ViewBag.Totale)</strong></td>
+                </tr>
+            }
+        else
+            {
+                <tr>
+                    <td colspan="5">Il carrello è vuoto</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @if (Model != null && Model.Count > 0)
+    {
+        @Html.ActionLink("Conferma ordine", "ConfirmOrder", "Ordini", new { @class = "btn btn-danger w-100 text-center" })
+    }
+</div>

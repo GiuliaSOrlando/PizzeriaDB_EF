@@ -1,0 +1,73 @@
+﻿@model IEnumerable<PizzeriaDB_EF.Models.Prodotti>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="bg-dark text-danger p-5 rounded-3">
+    <h2 class="fw-light text-center">LISTA PIZZE</h2>
+    <hr class="bg-white" />
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4">
+                <div class="card mb-4" style="background-size: cover; background-position: center; background-repeat: no-repeat; min-height: 200px; background-image: url('@Url.Content($"~/Content/img/uploads/{item.Foto}")');">
+                    <div class="card-body mt-5 pt-5" style="display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
+                        <div class="mt-5 pt-5">
+                            <h5 class="card-title text-white text-bg-danger p-1 lead">@item.Nome</h5>
+                            <p class="card-text text-danger bg-white p-2">@item.Ingredienti</p>
+                        </div>
+                        <div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Prezzo: @string.Format("{0:C}", item.Prezzo)</li>
+                                <li class="list-group-item">Tempo di consegna: @item.TempoConsegna minuti</li>
+                            </ul>
+                            <div class="card-body">
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <div class="btn-group">
+                                        @Html.ActionLink("Modifica", "Edit", new { id = item.IdProdotto }, new { @class = "btn btn-danger" })|
+                                        @Html.ActionLink("Cancella", "Delete", new { id = item.IdProdotto }, new { @class = "btn btn-danger" })
+                                    </div>
+                                }
+                                @if (User.IsInRole("User"))
+                                {
+                                    <input type="number" id="quantity-@item.IdProdotto" name="quantity-@item.IdProdotto" value="1" min="1" class="border border-0 rounded-1 w-25" />
+                                    <a class="text-decoration-none btn btn-danger" href="#" onclick="addToCart(@item.IdProdotto)">Aggiungi al carrello</a>
+
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    @if (User.IsInRole("User"))
+    {
+        @Html.ActionLink("Vai al checkout", "ViewCart", "Ordini", null, new { @class = "btn btn-danger w-100 text-center" })
+
+    }
+</div>
+
+@section scripts{
+    <script>
+        function addToCart(productId) {
+    var quantity = parseInt($("#quantity-" + productId).val());
+    if (isNaN(quantity) || quantity <= 0) {
+        alert("Quantità non valida");
+        return;
+    }
+
+    $.ajax({
+        url: "@Url.Action("AddToCart", "Ordini")",
+        method: "POST",
+        data: { id: productId, quantita: quantity },
+        success: function (result) {
+        },
+        error: function (error) {
+        }
+    });
+}
+    </script>
+    }

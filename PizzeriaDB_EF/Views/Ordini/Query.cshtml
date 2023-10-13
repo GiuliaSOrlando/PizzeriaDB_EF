@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Query";
+}
+
+<h2>Query</h2>
+
+<div>
+    <p>Ordini evasi: <span id="totalOrders"></span></p>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+                $.ajax({
+                    type: 'GET',
+                    url: 'TotalOrdersForDay',
+                    success: function (data) {
+                        console.log(data);
+                        $('#totalOrders').text(data.TotalOrders);
+                    }
+                });
+            });
+        });
+    </script>
+}
