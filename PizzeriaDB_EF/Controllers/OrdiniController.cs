@@ -156,7 +156,7 @@ namespace PizzeriaDB_EF.Controllers
                             Quantita = dettaglio.Quantita,
                             PrezzoTotale = dettaglio.PrezzoTotale,
                             IndirizzoSpedizione = indirizzoSpedizione,
-                            NoteAggiuntive = "prova",
+                            NoteAggiuntive = dettaglio.NoteAggiuntive,
                         };
 
                         foreach (var indice in indici)

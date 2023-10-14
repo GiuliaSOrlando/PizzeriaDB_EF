@@ -2,58 +2,61 @@
 
 @{
     ViewBag.Title = "Delete";
+    string formattedPrezzo = string.Format("{0:C}", Model.Prezzo);
 }
 
-<h2>Delete</h2>
+<div class="d-flex flex-column align-items-center mx-auto w-50 bg-white rounded-4 border border-1 border-white mt-5 p-2">
+    <h2 class="fw-light">CANCELLA PRODOTTO</h2>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Prodotti</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
+    <p>Sei proprio sicuro di voler eliminare questo prodotto?</p>
+    <div>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Nome)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Nome)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Nome)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Foto)
-        </dt>
-        <dt>
-            @Html.DisplayNameFor(model => model.Prezzo)
-        </dt>
+            <dt>
+                <img src="~/Content/img/uploads/@Model.Foto" style="height:200px;" class="shadow-lg" />
+            </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Prezzo)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Prezzo)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => formattedPrezzo)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TempoConsegna)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.TempoConsegna)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.TempoConsegna)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.TempoConsegna) min
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Ingredienti)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Ingredienti)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Ingredienti)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Ingredienti)
+            </dd>
 
-    </dl>
+        </dl>
 
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Elimina prodotto" class="btn btn-default" /> |
-            @Html.ActionLink("Torna alla lista prodotti", "Index")
-        </div>
-    }
-</div>
+            <div class="form-actions no-color">
+                <div class="btn-group w-100">
+                    <input type="submit" value="Elimina prodotto" class="btn btn-danger" />
+                    <a href="@Url.Action("Index")" class="btn btn-danger">Torna indietro</a>
+                </div>
+            </div>
+        }
+    </div>

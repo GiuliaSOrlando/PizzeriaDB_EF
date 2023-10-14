@@ -2,6 +2,7 @@ namespace PizzeriaDB_EF.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
@@ -26,7 +27,7 @@ namespace PizzeriaDB_EF.Models
         public string Foto { get; set; }
 
         public decimal? Prezzo { get; set; }
-
+        [DisplayName("Tempo di consegna")]
         public int? TempoConsegna { get; set; }
 
         [StringLength(50)]

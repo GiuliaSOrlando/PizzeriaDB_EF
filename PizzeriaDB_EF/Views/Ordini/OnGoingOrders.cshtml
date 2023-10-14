@@ -3,34 +3,35 @@
 @{
     ViewBag.Title = "Elenco Ordini in Corso";
 }
+<div class=" mx-auto bg-white rounded-4 border border-1 border-white mt-5 p-2">
+    <h2 class="fw-light text-center">ELENCO ORDINI IN CORSO</h2>
 
-<h2>Elenco Ordini in Corso</h2>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>ID Ordine</th>
-            <th>Data Ordine</th>
-            <th>Stato Ordine</th>
-            <th>Concludi Ordine</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var ordine in Model)
-        {
+    <table class="table">
+        <thead>
             <tr>
-                <td>@ordine.IdOrdine</td>
-                <td>@string.Format("{0:dd/MM/yyyy}", @ordine.DataOrdine)</td>
-                <td>@ordine.StatoOrdine</td>
-                <td>
-                    @if (ordine.StatoOrdine == "In elaborazione")
-                    {
-                        <form method="post" action="@Url.Action("ToggleOrderStatus", "Ordini", new {  idOrdine = ordine.IdOrdine, statoOrdine = ordine.StatoOrdine })">
-                            <button type="submit" class="btn btn-danger">Concludi Ordine</button>
-                        </form>
-                    }
-                </td>
+                <th>ID Ordine</th>
+                <th>Data ordine</th>
+                <th>Stato ordine</th>
+                <th>Concludi ordine</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var ordine in Model)
+            {
+                <tr>
+                    <td>@ordine.IdOrdine</td>
+                    <td>@string.Format("{0:dd/MM/yyyy}", @ordine.DataOrdine)</td>
+                    <td>@ordine.StatoOrdine</td>
+                    <td>
+                        @if (ordine.StatoOrdine == "In elaborazione")
+                        {
+                            <form method="post" action="@Url.Action("ToggleOrderStatus", "Ordini", new {  idOrdine = ordine.IdOrdine, statoOrdine = ordine.StatoOrdine })">
+                                <button type="submit" class="btn btn-danger">Concludi Ordine</button>
+                            </form>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    </div>
